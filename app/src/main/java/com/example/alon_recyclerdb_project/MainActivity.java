@@ -1,11 +1,15 @@
 package com.example.alon_recyclerdb_project;
 
 
+
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+
 
 
 import androidx.activity.EdgeToEdge;
@@ -17,9 +21,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+
+
+import com.example.alon_recyclerdb_project.R;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,14 +51,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        int how_big = 20;
+
+
         List<DataItem> dataList = new ArrayList<>();
-        for (int i = 0; i < how_big; i++) dataList.add(new DataItem("item"+(i+1)));
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         MyAdapter adapter = new MyAdapter(dataList,this);
         recyclerView.setAdapter(adapter);
-        ////
+
+
         NoteDatabase database = NoteDatabase.getInstance(this);
         noteDAO = database.noteDao();
         nameTextView = findViewById(R.id.editTextName);
@@ -55,21 +67,14 @@ public class MainActivity extends AppCompatActivity {
         adressTextView = findViewById(R.id.editTextTextAdress);
         phoneTextView = findViewById(R.id.editTextTextPhone);
         button = findViewById(R.id.buttonAdd);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 noteList = noteDAO.getAllNotes();
                 noteDAO.insert(new Note(nameTextView.getText().toString(),lastNameTextView.getText().toString(),adressTextView.getText().toString(),phoneTextView.getText().toString()));
-
-
+                for (int i = 0; i < noteList.size(); i++) dataList.add(new DataItem("name: "+nameTextView.getText().toString()+"\nLast Name: "+lastNameTextView.getText().toString()+ "\nadress: "+adressTextView.getText().toString()+"\nphone number: "+phoneTextView.getText().toString()));
             }
         });
     }
-
-
-
-
-
-
-
 }

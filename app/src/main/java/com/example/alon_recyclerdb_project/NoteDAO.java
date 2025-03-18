@@ -18,4 +18,5 @@ public interface NoteDAO {
     void delete(Note note);
     @Query("SELECT * FROM notes")
     List<Note> getAllNotes();
+
 }
